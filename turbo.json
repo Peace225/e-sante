@@ -1,0 +1,9 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [],
+  "tasks": {
+    "build": { "dependsOn": ["^build", "^db:generate"], "outputs": [".next/**", "dist/**"] },
+    "dev": { "dependsOn": ["^db:generate"], "cache": false, "persistent": true },
+    "db:generate": { "cache": false }
+  }
+}

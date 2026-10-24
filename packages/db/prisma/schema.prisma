@@ -1,0 +1,144 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url = "file:./dev.db"
+}
+
+model User {
+  id String @id @default(cuid())
+  email String @unique
+  password String
+  role String
+  nom String
+  prenom String
+  tel String?
+  createdAt DateTime @default(now())
+  familleId String?
+  famille Famille? @relation(fields: [familleId], references: [id])
+  familleGeree Famille[] @relation("ChefFamille")
+  patientDossier DossierPatient?
+  medecinProfil Medecin?
+  pharmacie Pharmacie?
+  labo Labo?
+  assureur Assureur?
+}
+
+model Famille {
+  id String @id @default(cuid())
+  nom String
+  chefId String
+  chef User @relation("ChefFamille", fields: [chefId], references: [id])
+  membres User[]
+  createdAt DateTime @default(now())
+}
+
+model DossierPatient {
+  id String @id @default(cuid())
+  userId String @unique
+  user User @relation(fields: [userId], references: [id])
+  allergies String @default("[]")
+  antecedents String?
+  ordonnances Ordonnance[]
+  resultatsLabo ResultatLabo[]
+  consentements Consentement[]
+}
+
+model Medecin {
+  id String @id @default(cuid())
+  userId String @unique
+  user User @relation(fields: [userId], references: [id])
+  specialite String
+  rpps String @unique
+  ordonnances Ordonnance[]
+}
+
+model Pharmacie {
+  id String @id @default(cuid())
+  userId String @unique
+  user User @relation(fields: [userId], references: [id])
+  nomPharmacie String
+  latitude Float?
+  longitude Float?
+}
+
+model Labo {
+  id String @id @default(cuid())
+  userId String @unique
+  user User @relation(fields: [userId], references: [id])
+  nomLabo String
+  resultats ResultatLabo[]
+}
+
+model Assureur {
+  id String @id @default(cuid())
+  userId String @unique
+  user User @relation(fields: [userId], references: [id])
+  nomAssurance String
+  tauxPriseEnCharge Int @default(80)
+}
+
+model MedicamentRef {
+  id String @id @default(cuid())
+  dci String
+  nomCommercial String
+  stock Int @default(0)
+  prix Float
+  ordonnanceLignes LigneOrdonnance[]
+}
+
+model Ordonnance {
+  id String @id @default(cuid())
+  patientId String
+  patient DossierPatient @relation(fields: [patientId], references: [id])
+  medecinId String
+  medecin Medecin @relation(fields: [medecinId], references: [id])
+  date DateTime @default(now())
+  statut String @default("EN_ATTENTE")
+  lignes LigneOrdonnance[]
+  qrCode String? @unique
+  teletransmission Teletransmission?
+}
+
+model LigneOrdonnance {
+  id String @id @default(cuid())
+  ordonnanceId String
+  ordonnance Ordonnance @relation(fields: [ordonnanceId], references: [id])
+  medicamentId String
+  medicament MedicamentRef @relation(fields: [medicamentId], references: [id])
+  posologie String
+  quantite Int
+}
+
+model ResultatLabo {
+  id String @id @default(cuid())
+  patientId String
+  patient DossierPatient @relation(fields: [patientId], references: [id])
+  laboId String
+  labo Labo @relation(fields: [laboId], references: [id])
+  typeAnalyse String
+  fichierUrl String?
+  valeurs String
+  date DateTime @default(now())
+}
+
+model Teletransmission {
+  id String @id @default(cuid())
+  ordonnanceId String @unique
+  ordonnance Ordonnance @relation(fields: [ordonnanceId], references: [id])
+  assureurId String
+  montantTotal Float
+  montantRembourse Float
+  statut String @default("ENVOYE")
+}
+
+model Consentement {
+  id String @id @default(cuid())
+  patientId String
+  patient DossierPatient @relation(fields: [patientId], references: [id])
+  acteurId String
+  typeDonnee String
+  actif Boolean @default(true)
+}

@@ -1,0 +1,17 @@
+.env
+.env.production
+.env.local
+apps/*/.env
+apps/*/.env.production
+apps/mobile/.env
+node_modules
+.pnpm-store
+dist
+.next
+.expo
+.expo-shared
+web-build
+pgdata
+redisdata
+.DS_Store
+Thumbs.db

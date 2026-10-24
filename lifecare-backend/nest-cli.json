@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/lifecare-backend/src",
+  "compilerOptions": {
+    "deleteOutDir": true,
+    "builder": "rspack",
+    "tsConfigPath": "apps/lifecare-backend/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "root": "apps/lifecare-backend",
+  "projects": {
+    "api-gateway": {
+      "type": "application",
+      "root": "apps/api-gateway",
+      "entryFile": "main",
+      "sourceRoot": "apps/api-gateway/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/api-gateway/tsconfig.app.json"
+      }
+    },
+    "appointment-service": {
+      "type": "application",
+      "root": "apps/appointment-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/appointment-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/appointment-service/tsconfig.app.json"
+      }
+    },
+    "lifecare-backend": {
+      "type": "application",
+      "root": "apps/lifecare-backend",
+      "entryFile": "main",
+      "sourceRoot": "apps/lifecare-backend/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/lifecare-backend/tsconfig.app.json"
+      }
+    }
+  }
+}

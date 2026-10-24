@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: lifecare-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: lifecare
+      POSTGRES_PASSWORD: lifecare360
+      POSTGRES_DB: lifecare_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:
