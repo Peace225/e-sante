@@ -7,5 +7,23 @@
     "db:generate": "pnpm --filter @e-sante/db exec prisma generate",
     "db:push": "pnpm --filter @e-sante/db db:push"
   },
-  "packageManager": "pnpm@12.14.0"
+  "packageManager": "pnpm@12.14.0",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@nestjs/core",
+      "@prisma/client",
+      "@prisma/engines",
+      "prisma",
+      "esbuild",
+      "unrs-resolver"
+    ],
+    "allowBuilds": {
+      "@nestjs/core": true,
+      "@prisma/client": true,
+      "@prisma/engines": true,
+      "prisma": true,
+      "esbuild": true,
+      "unrs-resolver": true
+    }
+  }
 }
