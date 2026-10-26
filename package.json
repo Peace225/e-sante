@@ -7,5 +7,5 @@
     "db:generate": "pnpm --filter @e-sante/db exec prisma generate",
     "db:push": "pnpm --filter @e-sante/db db:push"
   },
-  "packageManager": "pnpm@12.14.0"
+  "packageManager": "pnpm@9.15.4"
 }
