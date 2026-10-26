@@ -1,0 +1,42 @@
+{
+  "cli": {
+    "version": ">= 12.8.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "resourceClass": "m-medium"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://api.lifecare.ci",
+        "EXPO_PUBLIC_BILLING_URL": "https://api.lifecare.ci/billing/pay"
+      }
+    },
+    "production": {
+      "autoIncrement": true,
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://api.lifecare.ci",
+        "EXPO_PUBLIC_BILLING_URL": "https://api.lifecare.ci/billing/pay",
+        "EXPO_PUBLIC_TICKET_MODERATEUR": "3000"
+      },
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "production-aab": {
+      "extends": "production",
+      "android": {
+        "buildType": "app-bundle"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
